@@ -91,6 +91,10 @@ public class TheCrims {
                     driver.findElement(By.xpath("//td[.='" + prop.getProperty("club") + "']/../td[@align='right']/form/input[@value='Vstup']")).click();
                 }catch(org.openqa.selenium.NoSuchElementException e){
                     increaseClubRespect(driver, prop, 190);
+                    Thread.sleep(1000);
+                    driver.findElement(By.xpath("//div[@id='menu-nightlife']")).click();
+                    Thread.sleep(1000);
+                    driver.findElement(By.xpath("//td[.='" + prop.getProperty("club") + "']/../td[@align='right']/form/input[@value='Vstup']")).click();
                 }
                 Thread.sleep(1000);
                 String kolikKopeString = driver.findElement(By.xpath("//td[.='Hašiš']/../td[2][@class='ng-binding']")).getText();
