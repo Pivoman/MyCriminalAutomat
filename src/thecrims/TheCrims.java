@@ -25,6 +25,16 @@ public class TheCrims {
         wait.until(ExpectedConditions.elementToBeClickable(by));
     }
     
+    public static void detoxicate(WebDriver driver) throws InterruptedException{
+        if(driver.findElement(By.xpath("//div[@id='user-profile-addiction']/span")).getText().equals("7")){
+            Thread.sleep(1500);
+            driver.findElement(By.id("menu-sprite-hospital")).click();
+            waitForElement(driver, By.xpath("//input[@value='Detoxikuj']"), 5);
+            driver.findElement(By.xpath("//input[@value='Detoxikuj']")).click();
+            Thread.sleep(2000);
+        }
+    }
+    
     public static void robbery(WebDriver driver, Properties prop) throws InterruptedException{
         driver.findElement(By.xpath("//span[.='Zlodějina']")).click();
         waitForElement(driver, By.id("single-robbery-select"), 5);
@@ -35,6 +45,7 @@ public class TheCrims {
             waitForElement(driver, By.id("single-robbery-submit"), 5);
             driver.findElement(By.id("single-robbery-submit")).click();
         }
+        detoxicate(driver);
     }
     
     public static void increaseClubRespect(WebDriver driver, Properties prop, int value) throws InterruptedException{
@@ -67,6 +78,8 @@ public class TheCrims {
         int i=0;
         while(true){
             if(Integer.parseInt(driver.findElement(By.xpath("//span[@ng-bind='user.stamina']")).getText()) < 100){
+                Thread.sleep(1500);
+                detoxicate(driver);
                 if(i % 2 == 0){
                     Thread.sleep(1000);
                     increaseClubRespect(driver, prop, 190);
