@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -39,8 +41,17 @@ public class TheCrims {
         driver.findElement(By.xpath("//span[.='Zlodějina']")).click();
         waitForElement(driver, By.id("single-robbery-select"), 5);
         driver.findElement(By.id("single-robbery-select")).click();
-        waitForElement(driver, By.xpath("//option[.='" + prop.getProperty("stole") + "']"), 5);
-        driver.findElement(By.xpath("//option[.='" + prop.getProperty("stole") + "']")).click();
+//        waitForElement(driver, By.xpath("//option[.='" + prop.getProperty("stole") + "']"), 5);
+//        driver.findElement(By.xpath("//option[.='" + prop.getProperty("stole") + "']")).click();
+        Thread.sleep(1500);
+        List<WebElement> robberies = (driver.findElements(By.xpath("//option")));
+        for(int i = 0; i < robberies.size(); i++) {
+            if(robberies.get(robberies.size()-1-i).getText().contains(" SP: 100%")){
+                driver.findElement(By.xpath("//option[.='" + robberies.get(robberies.size()-1-i).getText() + "']")).click();
+            }
+        }
+        
+        
         for (int i = 0; i < 4; i++) {
             waitForElement(driver, By.id("single-robbery-submit"), 5);
             driver.findElement(By.id("single-robbery-submit")).click();
