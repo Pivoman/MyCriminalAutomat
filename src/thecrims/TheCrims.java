@@ -48,6 +48,7 @@ public class TheCrims {
         for(int i = 0; i < robberies.size(); i++) {
             if(robberies.get(robberies.size()-1-i).getText().contains(" SP: 100%")){
                 driver.findElement(By.xpath("//option[.='" + robberies.get(robberies.size()-1-i).getText() + "']")).click();
+                break;
             }
         }
         
@@ -91,9 +92,18 @@ public class TheCrims {
             if(Integer.parseInt(driver.findElement(By.xpath("//span[@ng-bind='user.stamina']")).getText()) < 100){
                 Thread.sleep(1500);
                 detoxicate(driver);
-                if(i % 2 == 0){
+                if(i % 3 == 2){
+//                    Thread.sleep(20000);
+//                    increaseClubRespect(driver, prop, 500);
+                    waitForElement(driver, By.xpath("//a[@href='/logout'][@title='Vypadni']"), 5);
+                    driver.findElement(By.xpath("//a[@href='/logout'][@title='Vypadni']")).click();
+                    waitForElement(driver, By.xpath("//input[@placeholder='Username']"), 5);
+                    driver.findElement(By.xpath("//input[@placeholder='Username']")).clear();
+                    driver.findElement(By.xpath("//input[@placeholder='Username']")).sendKeys(prop.getProperty("username"));
+                    driver.findElement(By.xpath("//input[@placeholder='Password']")).clear();
+                    driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys(prop.getProperty("password"));
+                    driver.findElement(By.xpath("//button[.='Přihlaš se']")).click();
                     Thread.sleep(1000);
-                    increaseClubRespect(driver, prop, 190);
                 }
                 Thread.sleep(1000);
                 driver.findElement(By.xpath("//div[@id='menu-nightlife']")).click();
@@ -101,7 +111,7 @@ public class TheCrims {
                 try{
                     driver.findElement(By.xpath("//td[.='" + prop.getProperty("club") + "']/../td[@align='right']/form/input[@value='Vstup']")).click();
                 }catch(org.openqa.selenium.NoSuchElementException e){
-                    increaseClubRespect(driver, prop, 190);
+                    increaseClubRespect(driver, prop, 2000);
                     Thread.sleep(1000);
                     driver.findElement(By.xpath("//div[@id='menu-nightlife']")).click();
                     Thread.sleep(1000);
