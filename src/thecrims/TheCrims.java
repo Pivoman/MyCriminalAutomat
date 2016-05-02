@@ -46,7 +46,7 @@ public class TheCrims {
         Thread.sleep(1500);
         List<WebElement> robberies = (driver.findElements(By.xpath("//option")));
         for(int i = 0; i < robberies.size(); i++) {
-            if(robberies.get(robberies.size()-1-i).getText().contains(" SP: 100%")){
+            if(robberies.get(robberies.size()-1-i).getText().contains(" SP: 100%") && !robberies.get(robberies.size()-1-i).getText().contains("Carnival")){
                 driver.findElement(By.xpath("//option[.='" + robberies.get(robberies.size()-1-i).getText() + "']")).click();
                 break;
             }
